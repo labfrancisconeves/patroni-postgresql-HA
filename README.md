@@ -27,33 +27,6 @@ In this project, we implemented a high availability solution for PostgreSQL usin
 - [7\. Useful commands](#PostgreSQLHASetupwithPatroni/etcd/k)
   - [Check patroni cluster status](#PostgreSQLHASetupwithPatroni/etcd/k)# PostgreSQL HA Setup with Patroni/etcd/keepalived
 
-In this project, we implemented a high availability solution for PostgreSQL using three complementary components: ETCD, Patroni, and Keepalived. ETCD acts as a distributed configuration and coordination system, maintaining cluster state and ensuring consensus among nodes. Patroni is responsible for orchestrating PostgreSQL by managing replication, automatic failover, and health checks. Lastly, Keepalived manages the virtual IP (VIP) address, ensuring that the database service is always reachable at a fixed address, even in the event of a node failure, allowing seamless transitions for the end user. This integration provides a robust, resilient environment with automatic failover for PostgreSQL.
-
-- [1\. Networking pre-requisites](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [PostgreSQL Replication and HA - Firewall and User Requirements](#PostgreSQLHASetupwithPatroni/etcd/k)
-    - [Firewall Ports](#PostgreSQLHASetupwithPatroni/etcd/k)
-    - [Required PostgreSQL Users](#PostgreSQLHASetupwithPatroni/etcd/k)
-- [2\. Environment](#PostgreSQLHASetupwithPatroni/etcd/k)
-- [3\. ETCD - Cluster](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Step 1. Install etcd on each node](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Step 2. Create user and folder for the service](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Step 3. Create file /etc/systemd/system/etcd.service](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Start and enable service on each node](#PostgreSQLHASetupwithPatroni/etcd/k)
-- [4\. Postgresql 14](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Installation](#PostgreSQLHASetupwithPatroni/etcd/k)
-- [5\. Patroni](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Dependency installation](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Create the service file (/etc/systemd/system/patroni.service)](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Create file /etc/patroni.yml](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Start and enable the service on the 2 nodes](#PostgreSQLHASetupwithPatroni/etcd/k)
-- [6\. Keepalived](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Installation](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Create file /etc/keepalived/keepalived.conf](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Create the IP bounce script /usr/local/bin/check_patroni.sh](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Start and enable the service on the 2 nodes:](#PostgreSQLHASetupwithPatroni/etcd/k)
-- [7\. Useful commands](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Check patroni cluster status](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Check if the VIP is correctly attached](#PostgreSQLHASetupwithPatroni/etcd/k)
 
 ## 1. Networking pre-requisites
 
