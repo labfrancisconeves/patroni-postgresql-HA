@@ -1,0 +1,54 @@
+scope: postgres
+namespace: /db/
+name: psql-01
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: 10.20.20.180:8008
+etcd3:
+  name: etcd
+  hosts:
+    - 10.20.20.180:2379
+    - 10.20.20.181:2379
+    - 10.20.20.182:2379
+bootstrap:
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    retry_timeout: 10
+    maximum_lag_on_failover: 1048576
+    postgresql:
+      use_pg_rewind: true
+      parameters:
+        max_connections: 100
+        max_locks_per_transaction: 64
+        max_worker_processes: 8
+        wal_level: replica
+        hot_standby: &quot;on&quot;
+        wal_log_hints: &quot;on&quot;
+        max_wal_senders: 10
+        wal_keep_size: 64
+        archive_mode: &quot;off&quot;
+        archive_command: &#39;&#39;
+  initdb:
+  - encoding: UTF8
+  - locale: en_US.UTF-8
+postgresql:
+  listen: 0.0.0.0:5432
+  connect_address: 10.20.20.180:5432
+  data_dir: /var/lib/pgsql/14/data
+  bin_dir: /usr/pgsql-14/bin
+  authentication:
+    replication:
+      username: replicator
+      password: replicator_password
+    superuser:
+
+      username: postgres
+      password: postgres_password
+  parameters:
+    unix_socket_directories: &#39;/var/run/postgresql&#39;
+tags:
+  nofailover: false
+  noloadbalance: false
+  clonefrom: false
+  nosync: false

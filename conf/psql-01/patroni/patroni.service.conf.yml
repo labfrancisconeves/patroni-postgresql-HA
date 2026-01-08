@@ -1,0 +1,11 @@
+[Unit]
+Description=Runners to orchestrate a PostgreSQL cluster
+After=network.target
+[Service]
+Type=simple
+User=postgres
+ExecStart=/usr/local/bin/patroni /etc/patroni.yml
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
