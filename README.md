@@ -25,8 +25,7 @@ In this project, we implemented a high availability solution for PostgreSQL usin
   - [Create the IP bounce script /usr/local/bin/check_patroni.sh](#PostgreSQLHASetupwithPatroni/etcd/k)
   - [Start and enable the service on the 2 nodes:](#PostgreSQLHASetupwithPatroni/etcd/k)
 - [7\. Useful commands](#PostgreSQLHASetupwithPatroni/etcd/k)
-  - [Check patroni cluster status](#PostgreSQLHASetupwithPatroni/etcd/k)# PostgreSQL HA Setup with Patroni/etcd/keepalived
-
+  - [Check patroni cluster status](#PostgreSQLHASetupwithPatroni/etcd/k)
 
 ## 1. Networking pre-requisites
 
