@@ -1,0 +1,21 @@
+[Unit]
+Description=etcd key-value store
+Documentation=https://github.com/etcd-io/etcd
+After=network.target
+[Service]
+User=etcd
+ExecStart=/usr/local/bin/etcd \\
+  --name psql-03 \\
+  --data-dir /var/lib/etcd \\
+  --listen-peer-urls http://10.20.20.182:2380 \\
+  --listen-client-urls http://10.20.20.182:2379,http://127.0.0.1:2379 \\
+  --initial-advertise-peer-urls http://10.20.20.182:2380 \\
+  --advertise-client-urls http://10.20.20.182:2379 \\
+  --initial-cluster psql-01=http://10.20.20.180:2380,psql-
+02=http://10.20.20.181:2380,bdu-cgd-psql-03=http://10.20.20.182:2380 \\
+  --initial-cluster-state new \\
+  --initial-cluster-token etcd-cluster-01
+Restart=on-failure
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target
